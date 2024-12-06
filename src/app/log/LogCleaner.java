@@ -1,5 +1,7 @@
 package app.log;
 
+import app.Application;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -7,7 +9,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 public class LogCleaner {
-    private static final Logger logger = LoggerConfig.createLogger(LogCleaner.class.getName());
+    private static final Logger logger = Application.logger;
 
     public static void deleteOldLogs(String logBasePath) {
         try {

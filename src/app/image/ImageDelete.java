@@ -1,6 +1,6 @@
 package app.image;
 
-import app.log.LoggerConfig;
+import app.Application;
 
 import java.io.File;
 import java.text.ParseException;
@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.logging.Logger;
 
 public class ImageDelete {
-    private static final Logger logger = LoggerConfig.createLogger(ImageDownloader.class.getName());
+    private static final Logger logger = Application.logger;
     private static final String FILE_NAME_DATE_FORMAT = "yyyyMMddHHmm"; // 파일 이름에 포함된 날짜 형식
     private static final long SEVEN_DAYS_IN_MILLISECONDS = 7L * 24 * 60 * 60 * 1000; // 7일(밀리초)
 

@@ -16,7 +16,7 @@ import static app.image.ImageDelete.deleteOldImages;
 import static app.image.ImageDownloader.downloadImage;
 
 public class Application {
-    private static final Logger logger = LoggerConfig.createLogger(ImageDownloader.class.getName());
+    public static Logger logger=LoggerConfig.createLogger(Application.class.getName());
     private static String basePath = "D:" + File.separator + "WEBDATA" + File.separator + "RADAR" + File.separator;
     private static String apiUrl = "http://global.amo.go.kr/radar/cgi-bin/nph-rdr_cmp_img?";
 
@@ -29,17 +29,18 @@ public class Application {
         int interval=2; //실행 주기
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(th);
 
-        // 7일 전 로그 삭제
-        scheduler.scheduleAtFixedRate(() -> {
-            LogCleaner.deleteOldLogs("logs");
-        }, 0, 1, TimeUnit.DAYS); // 매일 한 번 실행
-
         // ScheduledExecutorService 동작
         scheduler.scheduleAtFixedRate(() -> {
-            String cmp="HSR";
             String tm = getPreviousFiveMinuteTime();
-            String size="1000";
+            // 자정 작업 실행
+            if (tm.endsWith("0000")) { // 자정일 경우
+                logger.info("자정, 로그 처리 로직 수행 >>>>>>>>>>");
+                logger = LoggerConfig.createLogger(Application.class.getName());
+                LogCleaner.deleteOldLogs("logs");
+            }
 
+            String cmp="HSR";
+            String size="1000";
             String imageUrl = apiUrl +
                     "&cmp="+ cmp +
                     "&obs=ECHO" +

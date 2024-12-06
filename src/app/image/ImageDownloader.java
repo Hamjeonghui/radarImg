@@ -1,6 +1,6 @@
 package app.image;
 
-import app.log.LoggerConfig;
+import app.Application;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 public class ImageDownloader {
-    private static final Logger logger = LoggerConfig.createLogger(ImageDownloader.class.getName());
+    private static final Logger logger = Application.logger;
 
     public static void downloadImage(String imageUrl, String directoryPath, String fileName) {
         // 파일 경로 생성

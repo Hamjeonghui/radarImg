@@ -10,6 +10,7 @@ public class LoggerConfig {
 
     public static Logger createLogger(String loggerName) {
         Logger logger = Logger.getLogger(loggerName);
+        removeExistingHandlers(logger);
 
         try {
             // 현재 날짜 가져오기
@@ -48,6 +49,14 @@ public class LoggerConfig {
         return logger;
     }
 
+    // 기존 핸들러 제거
+    private static void removeExistingHandlers(Logger logger) {
+        Handler[] handlers = logger.getHandlers();
+        for (Handler handler : handlers) {
+            logger.removeHandler(handler);
+            handler.close(); // 핸들러 리소스 정리
+        }
+    }
     private static FileHandler createFileHandler(String path, Level level) throws IOException {
         FileHandler fileHandler = new FileHandler(path, true);
         fileHandler.setLevel(level);
